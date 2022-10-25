@@ -42,15 +42,15 @@ class Handler implements URLHandler {
            String[] parameters = url.getQuery().split("=");
            if (parameters[0].equals("q")) {
                String result = "";
-               List<String> foundPaths = new ArrayList<>();
+               List<String> foundFiles = new ArrayList<>();
                for(File f: paths) {
-                   if(FileHelpers.readFile(f).contains(parameters[1])) {
-                       foundPaths.add(f.toString());
+                   if(f.toString().contains(parameters[1])) {
+                       foundFiles.add(f.toString());
                    }
                }
-               Collections.sort(foundPaths);
-               result = String.join("\n", foundPaths);
-               return String.format("Found %d paths:\n%s", foundPaths.size(), result);
+               Collections.sort(foundFiles);
+               result = String.join("\n", foundFiles);
+               return String.format("Found %d paths:\n%s", foundFiles.size(), result);
            }
            else {
                return "Couldn't find query parameter q";
